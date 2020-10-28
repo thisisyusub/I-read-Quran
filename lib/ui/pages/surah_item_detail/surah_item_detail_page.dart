@@ -16,7 +16,7 @@ class _SurahItemDetailPageState extends State<SurahItemDetailPage> {
 
   @override
   void initState() {
-    widget.surah.verses.forEach((verse) => sb.write('${verse.text}]n'));
+    widget.surah.verses.forEach((verse) => sb.write('${verse.text}\n'));
     super.initState();
   }
 

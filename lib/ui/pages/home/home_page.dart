@@ -114,7 +114,8 @@ class HomePage extends StatelessWidget {
                         child: SurahItem(
                           name: '${currentSurah.surahNumber}. '
                               '${currentSurah.surahName} surəsi',
-                          description: currentSurah.surahDescription,
+                          description:
+                              '${currentSurah.surahDescription}, ${currentSurah.ayahCount} ayədir.',
                           readCount: 0,
                           verseCount: currentSurah.ayahCount,
                         ),
