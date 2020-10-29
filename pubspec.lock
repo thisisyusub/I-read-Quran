@@ -209,6 +209,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_slidable:
+    dependency: "direct main"
+    description:
+      name: flutter_slidable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.7"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -228,6 +235,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  google_fonts:
+    dependency: "direct main"
+    description:
+      name: google_fonts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
   graphs:
     dependency: transitive
     description:
@@ -256,6 +270,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.1"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.12.2"
   http_multi_server:
     dependency: transitive
     description:

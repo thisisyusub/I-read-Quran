@@ -1,29 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../data/models/surah.dart';
+import './widgets/verse_item.dart';
 
 class SurahItemDetailPage extends StatefulWidget {
-  const SurahItemDetailPage({Key key, this.surah}) : super(key: key);
+  const SurahItemDetailPage({
+    Key key,
+    @required this.surah,
+    this.refreshCallback,
+  }) : super(key: key);
 
   final Surah surah;
+  final VoidCallback refreshCallback;
 
   @override
   _SurahItemDetailPageState createState() => _SurahItemDetailPageState();
 }
 
 class _SurahItemDetailPageState extends State<SurahItemDetailPage> {
-  StringBuffer sb = StringBuffer();
-
-  @override
-  void initState() {
-    widget.surah.verses.forEach((verse) => sb.write('${verse.text}\n'));
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(child: Text(sb.toString())),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Color(0xFFa78462),
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        backgroundColor: Color(0xFFcbb39e),
+        body: ListView.builder(
+          physics: ClampingScrollPhysics(),
+          itemBuilder: (_, index) => VerseItem(
+            verse: widget.surah.verses[index],
+            surah: widget.surah,
+            refreshCallback: () {
+              setState(() {});
+              widget.refreshCallback?.call();
+            },
+          ),
+          itemCount: widget.surah.verses.length,
+        ),
+      ),
     );
   }
 }

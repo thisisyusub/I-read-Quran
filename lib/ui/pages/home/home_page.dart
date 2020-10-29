@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'file:///Z:/My%20Projects/i_read_quran/tools/surah_parser_service.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import './widgets/home_top_bar.dart';
 import './widgets/surah_item.dart';
+import '../../../data/services/hive_service.dart';
 import '../surah_item_detail/surah_item_detail_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  HomePage({Key key}) : super(key: key);
+
+  final allSurah = HiveService().allSurah;
 
   @override
   Widget build(BuildContext context) {
@@ -15,47 +19,32 @@ class HomePage extends StatelessWidget {
         HomeTopBar(),
         const SizedBox(height: 20),
         Expanded(
-          child: CustomScrollView(
-            slivers: [
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8.0,
-                ),
-                sliver: SliverGrid(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
-                    childAspectRatio: 1 / 1.3,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    (_, i) {
-                      final currentSurah = SurahParserService().allSurah[i];
-
-                      return GestureDetector(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => SurahItemDetailPage(
-                              surah: currentSurah,
-                            ),
-                          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ValueListenableBuilder(
+                valueListenable:
+                    Hive.box('appBox').listenable(keys: ['surahs']),
+                builder: (context, value, child) {
+                  return GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
+                      childAspectRatio: 1 / 1.1,
+                    ),
+                    itemBuilder: (_, index) => GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              SurahItemDetailPage(surah: allSurah[index]),
                         ),
-                        child: SurahItem(
-                          name: '${currentSurah.surahNumber}. '
-                              '${currentSurah.surahName} surəsi',
-                          description: '${currentSurah.surahDescription}.',
-                          readCount: 0,
-                          verseCount: currentSurah.ayahCount,
-                        ),
-                      );
-                    },
-                    childCount: SurahParserService().allSurah.length,
-                  ),
-                ),
-              ),
-            ],
+                      ),
+                      child: SurahItem(surah: allSurah[index]),
+                    ),
+                    itemCount: allSurah.length,
+                  );
+                }),
           ),
         ),
       ],

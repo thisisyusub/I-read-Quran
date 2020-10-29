@@ -21,6 +21,7 @@ class _MainPageState extends State<MainPage> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarColor: Theme.of(context).primaryColor,
+        statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
         body: SafeArea(

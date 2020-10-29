@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../values/colors.dart';
+import '../../../../data/models/surah.dart';
 
 class SurahItem extends StatelessWidget {
-  const SurahItem({
-    Key key,
-    this.name,
-    this.description,
-    this.verseCount,
-    this.readCount,
-  }) : super(key: key);
+  const SurahItem({Key key, @required this.surah}) : super(key: key);
 
-  final String name;
-  final String description;
-  final int verseCount;
-  final int readCount;
+  final Surah surah;
 
   @override
   Widget build(BuildContext context) {
@@ -26,28 +18,24 @@ class SurahItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
         border: Border.all(
           width: 1,
-          color: readCount == verseCount ? Colors.green : surahItemBorderColor,
+          color: surahItemBorderColor,
         ),
       ),
       child: Column(
         children: [
           Text(
-            name,
+            '${surah.index}. ${surah.latin} surəsi',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.bodyText2.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
           ),
           const SizedBox(height: 10),
           Text(
-            description,
-            style: TextStyle(
-              fontSize: 12,
-              color: surahDescriptionTextColor,
-              fontStyle: FontStyle.italic,
-            ),
+            '${surah.type}, ${surah.verseCount} ayədir.',
+            style: Theme.of(context).textTheme.caption.copyWith(
+                  color: surahDescriptionTextColor,
+                ),
             textAlign: TextAlign.center,
           ),
           Spacer(),
@@ -63,11 +51,11 @@ class SurahItem extends StatelessWidget {
                   ),
                 ),
                 FractionallySizedBox(
-                  widthFactor: readCount / verseCount,
+                  widthFactor: surah.readVerseCount / surah.verseCount,
                   child: Container(
                     height: 10,
                     decoration: BoxDecoration(
-                      color: readCount == verseCount
+                      color: surah.readVerseCount == surah.verseCount
                           ? Colors.green
                           : progressBarColor,
                       borderRadius: BorderRadius.circular(10.0),
@@ -79,12 +67,12 @@ class SurahItem extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            '$readCount/$verseCount',
-            style: TextStyle(
-              fontSize: 12,
-              color: surahDescriptionTextColor,
-              fontWeight: FontWeight.w600,
-            ),
+            '${surah.readVerseCount}/${surah.verseCount}',
+            style: Theme.of(context).textTheme.caption.copyWith(
+                  color: surahDescriptionTextColor,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                ),
           ),
         ],
       ),

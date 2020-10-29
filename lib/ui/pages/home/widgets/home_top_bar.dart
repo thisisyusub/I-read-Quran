@@ -14,7 +14,7 @@ class HomeTopBar extends StatelessWidget {
       painter: HomePageTopPainter(),
       child: Container(
         width: double.infinity,
-        height: size.height * 0.2,
+        height: size.height * 0.16,
         child: Stack(
           children: [
             Align(
@@ -42,12 +42,12 @@ class HomeTopBar extends StatelessWidget {
                     textAlign: TextAlign.center,
                     text: TextSpan(
                       text: '#MənQuranOxuyuram',
-                      style: TextStyle(
-                        height: 2,
-                        fontSize: 16,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            height: 2,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                     ),
                   ),
                 ],
