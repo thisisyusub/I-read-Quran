@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:i_read_quran/data/services/surah_parser_service.dart';
+import 'file:///Z:/My%20Projects/i_read_quran/tools/surah_parser_service.dart';
 
 import './widgets/home_top_bar.dart';
 import './widgets/surah_item.dart';

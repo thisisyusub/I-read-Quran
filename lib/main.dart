@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'file:///Z:/My%20Projects/i_read_quran/tools/surah_parser_service.dart';
 
-import './ui/values/theme.dart';
 import './ui/pages/main/main_page.dart';
-
-import './data/services/surah_parser_service.dart';
+import './ui/values/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final allSurah = await SurahParserService().fetchAllSurah();
-  SurahParserService().allSurah = allSurah;
+  await SurahParserService().fetchAllSurah();
 
   runApp(MyApp());
 }
