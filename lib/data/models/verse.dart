@@ -1,15 +1,7 @@
 class Verse {
-  Verse({
-    this.verseNumber,
-    this.text,
-  });
-
-  final String verseNumber;
+  final String number;
   final String text;
+  final String translation;
 
-  @override
-  String toString() => '''{
-    verseNumber: $verseNumber,
-    text: $text,
-    }''';
+  const Verse({this.number, this.text, this.translation});
 }

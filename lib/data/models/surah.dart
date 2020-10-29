@@ -1,32 +1,19 @@
 import './verse.dart';
 
 class Surah {
-  Surah({
-    this.surahName,
-    this.surahNumber,
+  final String arabic;
+  final String latin;
+  final int verseCount;
+  final int index;
+  final String type;
+  final List<Verse> verses;
+
+  const Surah({
+    this.type,
+    this.latin,
+    this.index,
+    this.arabic,
     this.verses,
-    this.ayahCount,
+    this.verseCount,
   });
-
-  final String surahNumber;
-  final String surahName;
-  List<Verse> verses;
-  int ayahCount;
-  String surahDescription;
-
-  factory Surah.fromJson(Map<String, dynamic> json) {
-    return Surah(
-      surahName: json['surah_name'],
-      surahNumber: json['surah_number'],
-    );
-  }
-
-  @override
-  String toString() => '''{
-    surahName: $surahName,
-    surahNumber: $surahNumber,
-    verses: $verses,
-    ayahCount: $ayahCount,
-    surahDescription: $surahDescription,
-    }''';
 }
