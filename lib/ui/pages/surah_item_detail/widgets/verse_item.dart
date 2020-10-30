@@ -60,7 +60,7 @@ class VerseItem extends StatelessWidget {
             color: Theme.of(context).primaryColor,
             onTap: () async {
               await HiveService()
-                  .changeProgress(completed ? '0' : verse.number, surah.index);
+                  .changeProgress(completed ? '0' : verse.number, surah);
               refreshCallback?.call();
             },
           ),

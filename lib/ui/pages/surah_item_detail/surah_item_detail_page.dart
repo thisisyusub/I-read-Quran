@@ -32,7 +32,6 @@ class _SurahItemDetailPageState extends State<SurahItemDetailPage> {
     if (SchedulerBinding.instance.schedulerPhase ==
         SchedulerPhase.persistentCallbacks) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        print('builded!');
         if (widget.surah.readVerseCount > 0) {
           autoScrollController.scrollToIndex(
             widget.surah.readVerseCount,

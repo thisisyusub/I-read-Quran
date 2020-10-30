@@ -7,6 +7,7 @@ import './data/models/verse.dart';
 import './data/services/hive_service.dart';
 import './ui/pages/main/main_page.dart';
 import './ui/values/theme.dart';
+import './ui/widgets/custom_scroll_behaviour.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,7 @@ void main() async {
   Hive.registerAdapter(VerseAdapter());
 
   await Hive.openBox('appBox');
-  HiveService().configDatabase(version: 1);
+  await HiveService().configDatabase(version: 1);
 
   runApp(MyApp());
 }
@@ -28,6 +29,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Mən Quran oxuyuram',
       theme: lightTheme,
+      builder: (_, child) {
+        return ScrollConfiguration(
+          behavior: CustomScrollBehaviour(),
+          child: child,
+        );
+      },
       home: MainPage(),
     );
   }
