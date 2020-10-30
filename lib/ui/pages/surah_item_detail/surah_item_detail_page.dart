@@ -27,6 +27,9 @@ class _SurahItemDetailPageState extends State<SurahItemDetailPage> {
   @override
   void initState() {
     super.initState();
+    // to hide only status bar:
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+
     autoScrollController = AutoScrollController(axis: Axis.vertical);
 
     if (SchedulerBinding.instance.schedulerPhase ==
@@ -44,39 +47,39 @@ class _SurahItemDetailPageState extends State<SurahItemDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-        statusBarColor: Color(0xFFa78462),
-        statusBarIconBrightness: Brightness.dark,
-      ),
-      child: Scaffold(
-        backgroundColor: Color(0xFFcbb39e),
-        body: ListView.builder(
-          controller: autoScrollController,
-          scrollDirection: Axis.vertical,
-          physics: ClampingScrollPhysics(),
-          itemBuilder: (_, index) {
-            final number = widget.surah.verses[index].number;
-            final formattedNumber =
-                number.contains(',') ? number.split(',').first.trim() : number;
+    return Scaffold(
+      backgroundColor: Color(0xFFcbb39e),
+      body: ListView.builder(
+        controller: autoScrollController,
+        scrollDirection: Axis.vertical,
+        physics: ClampingScrollPhysics(),
+        itemBuilder: (_, index) {
+          final number = widget.surah.verses[index].number;
+          final formattedNumber =
+              number.contains(',') ? number.split(',').first.trim() : number;
 
-            return AutoScrollTag(
-              controller: autoScrollController,
-              index: int.parse(formattedNumber),
-              key: ValueKey(int.parse(formattedNumber)),
-              child: VerseItem(
-                verse: widget.surah.verses[index],
-                surah: widget.surah,
-                refreshCallback: () {
-                  setState(() {});
-                  widget.refreshCallback?.call();
-                },
-              ),
-            );
-          },
-          itemCount: widget.surah.verses.length,
-        ),
+          return AutoScrollTag(
+            controller: autoScrollController,
+            index: int.parse(formattedNumber),
+            key: ValueKey(int.parse(formattedNumber)),
+            child: VerseItem(
+              verse: widget.surah.verses[index],
+              surah: widget.surah,
+              refreshCallback: () {
+                setState(() {});
+                widget.refreshCallback?.call();
+              },
+            ),
+          );
+        },
+        itemCount: widget.surah.verses.length,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    super.dispose();
   }
 }
